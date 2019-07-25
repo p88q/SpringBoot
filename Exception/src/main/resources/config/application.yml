@@ -1,0 +1,12 @@
+## 端口号，错误路径
+server:
+  port: 8030
+  error:
+    path: /error
+
+## 国际化文件的编码格式、位置、缓存时间
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    cache-duration: 3600
