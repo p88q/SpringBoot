@@ -2,6 +2,7 @@ package com.god.exception.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * @Auther: shenzhaoyang
@@ -65,13 +66,12 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", isDier=").append(isDier);
-        sb.append(", age=").append(age);
-        sb.append(", message=").append(message);
-        sb.append(", money=").append(money);
-        sb.append('}');
-        return sb.toString();
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("isDier=" + isDier)
+                .add("age=" + age)
+                .add("message=" + message)
+                .add("money=" + money)
+                .toString();
     }
 }

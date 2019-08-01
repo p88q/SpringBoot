@@ -1,5 +1,6 @@
 package com.god.exception.controller;
 
+import com.god.exception.model.Foo;
 import com.god.exception.model.User;
 import com.god.exception.service.UserService;
 import com.god.util.Constants;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PingController {
 
     @Autowired
+    private Foo foo;
+
+    @Autowired
     private UserService userService;
 
     /**
@@ -28,13 +33,17 @@ public class PingController {
      * @param user
      * @return 返回数据格式经过fastjson处理了{ "age": 0, "dier": false, "message": [], "name": "" }
      */
+    @ResponseBody
     @PostMapping("/ping")
-    public Result ping(@RequestBody User user) {
+    public String ping(@RequestBody User user) {
         System.out.println(user);
         User user2 = new User();
         long l = 9223372036854775807L;
         user2.setMoney(l);
-        return Result.getSuccess(Constants.MESSAGE_SUCCESS, user2);
+        foo.setId("123");
+        System.out.println(foo);
+        return user2.toString();
+//        return Result.getSuccess(Constants.MESSAGE_SUCCESS, user2);
     }
 
     @RequestMapping("/ping2")
