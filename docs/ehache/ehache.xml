@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd">
+    <!-- 配置硬盘持久化目录 -->
+    <persistence directory="usr/tmp/ehcache"/>
+    <!-- 完整配置一个缓存 -->
+    <cache alias="myCache1">
+        <!-- 储存条目索引和储存值类型配置 -->
+        <!-- 缓存条目索引 -->
+        <key-type>java.lang.String</key-type>
+        <!-- 缓存条目类型 -->
+        <value-type>java.lang.String</value-type>
+        <!-- 缓存到期配置 -->
+        <expiry>
+            <!-- 使用TTI(Time to idle)策略 -->
+            <tti unit="minutes">2</tti>
+            <!-- 使用TTL(Time to leave)策略 -->
+            <!--<ttl unit="minutes">30</ttl>-->
+        </expiry>
+        <!-- 存储层配置 -->
+        <resources>
+            <!-- 配置堆存储 -->
+            <heap unit="entries">2000</heap>
+            <!-- 配置堆外存储 -->
+            <offheap unit="MB">20</offheap>
+            <!-- 配置硬盘持久化 -->
+            <disk unit="MB" persistent="true">500</disk>
+        </resources>
+    </cache>
+
+</config>

@@ -78,7 +78,7 @@ public class MyBatisPlus_Auto {
 		};
 
 		// 如果模板引擎是 freemarker
-		String templatePath = "/templates/mapper.xml.ftl";
+		String templatePath = "/templates/dao.xml.ftl";
 
 		// 自定义输出配置
 		List<FileOutConfig> focList = new ArrayList<>();
@@ -87,7 +87,7 @@ public class MyBatisPlus_Auto {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				// 自定义输出文件名
-				return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+				return projectPath + "/src/main/resources/dao/" + pc.getModuleName()
 						+ "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
 			}
 		});

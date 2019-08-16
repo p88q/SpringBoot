@@ -11,7 +11,7 @@
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 		<!-- 为生成的Java模型创建一个toString方法 -->
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
-		<commentGenerator type="com.god.autogeneration.autocreate.CommentGenerator">
+		<commentGenerator type="com.god.autogeneration.autocreate.CommentGenerator1">
 			<!-- 是否禁止显示日期 true：是 false:否 -->
 			<property name="suppressDate" value="true"/>
 			<!-- 是否去除注释 -->

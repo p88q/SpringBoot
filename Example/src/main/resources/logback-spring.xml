@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false">
+    <contextName>jwt_logback</contextName>
+
+    <!--用来定义变量值的标签，<property> 有两个属性，name和value；其中name的值是变量的名称，value的值时变量定义的值。通过<property>定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。-->
+    <property name="logPath" value="E:\\test\\log"></property>
+    <property name="logLevel" value="DEBUG"></property>
+    <property name="mysqlLogLevel" value="DEBUG"></property>
+    <property name="mybatisLogLevel" value="DEBUG"></property>
+    <property name="redisLogLevel" value="INFO"></property>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger{52}——日志输出者的名字 %msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${logPath}.%d{yyyy-MM-dd_HH}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!-- 大小达到1GB自动删除旧的日志 -->
+            <totalSizeCap>500MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%L - %msg%n</pattern>
+        </encoder>
+        <!--日志文件最大的大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>50MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--sql log configure-->
+    <logger name="java.sql.Connection" level="${mysqlLogLevel}"/>
+    <logger name="java.sql.Statement" level="${mysqlLogLevel}"/>
+    <logger name="java.sql.PreparedStatement" level="${mysqlLogLevel}"/>
+
+    <!--myibatis log configure-->
+    <!-- 没有指定level继承root的级别，没有指定appender则继承STDOUT -->
+    <logger name="org.mybatis.spring" level="${mybatisLogLevel}"/>
+
+    <logger name="org.apache.ibatis" level="${mybatisLogLevel}"/>
+
+    <!--redis log configure-->
+    <logger name="io.lettuce" level="${redisLogLevel}"/>
+
+    <!--org.springframework log configure-->
+    <logger name="org.springframework" level="${logLevel}"/>
+
+    <!-- additivity是否向上级loger传递打印信息 -->
+    <logger name="com.god" level="DEBUG" additivity = "false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- 日志输出级别 -->
+    <!-- root节点是必选节点，用来指定最基础的日志输出级别，只有一个level属性
+         level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，不能设置为INHERITED或者同义词NULL，默认是DEBUG
+     -->
+    <root level="${logLevel}">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>

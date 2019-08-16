@@ -1,20 +1,15 @@
-server:
-  port: 3000
-  servlet:
-    session:
-      timeout: 60m
+## spring 配置
 spring:
   datasource:
-    name: jwt_project
+    name: mysql_test
     type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
     druid:
       #监控统计拦截的filters
       filters: stat
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.jdbc.Driver
       #基本属性
-      # 如果mysql连接需要ssl请设置环境变量 PARCELX_DB_MORE_PARAMETERS 为 &useSSL=true&requireSSL=false
-      url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: parcelx@123
       #配置初始化大小/最小/最大
@@ -35,10 +30,32 @@ spring:
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
 
-#mybatis配置
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:
-  mapper-locations: classpath*:com/god/**/dao/xml/**.xml
-  type-aliases-package: com.god..dao
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.god..mapper  # 注意：对应实体类的路径
   configuration:
+    ## 是否允许mybatis生成主键
     use-generated-keys: true
+    ## 开启驼峰命名法
     map-underscore-to-camel-case: true
+
+## pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+  page-size-zero: true
+
+## 端口号和session会话
+server:
+  port: 1855
+  servlet:
+    session:
+      timeout: 60
+
+## 日志文件
+logging:
+  config: classpath:logback-spring.xml

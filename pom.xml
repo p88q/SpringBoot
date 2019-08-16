@@ -46,11 +46,19 @@
         <HikariCP.version>3.2.0</HikariCP.version>
         <webmagic.version>0.7.2</webmagic.version>
         <velocity.version>2.0</velocity.version>
-
+        <util.version>0.0.1-SNAPSHOT</util.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.god</groupId>
+                <artifactId>util</artifactId>
+                <version>${util.version}</version>
+            </dependency>
+
+
             <!-- Spring Boot相关jar包 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -93,7 +101,7 @@
                 <version>${mybatis.version}</version>
             </dependency>
 
-            <!--mapper-->
+            <!--dao-->
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
@@ -269,6 +277,7 @@
         <module>EasyPOI</module>
         <module>Autogeneration</module>
         <module>Validator</module>
+        <module>Example</module>
     </modules>
 
     <build>
