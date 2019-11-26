@@ -35,6 +35,12 @@ Swing API编程
 
 dozerMapper 对象拷贝 √
 
-Ehcache缓存管理
+Ehcache缓存管理 Todo
 
 xml自定义
+
+rockerMQ
+
+kafka
+
+spring cloud

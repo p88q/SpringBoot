@@ -4,7 +4,6 @@ import com.github.pagehelper.PageRowBounds;
 import com.god.example.dao.UserDao;
 import com.god.example.model.UserBean;
 import com.god.example.service.UserService;
-import com.god.util.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

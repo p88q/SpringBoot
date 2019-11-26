@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.god.ehcache.mapper.UserMapper">
+    <!-- 开启二级缓存 -->
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+
+    <!-- 新增 -->
+    <insert id="add" parameterType="com.god.user.entity.UserInfoEntity">
+        insert into user_info (
+        <if test="userName != null">user_name, </if>
+        <if test="phone != null">phone, </if>
+        <if test="mail != null">mail, </if>
+        <if test="password != null">password, </if>
+        <if test="remark != null">remark, </if>
+        id, create_time, modify_time, dr
+        ) values (
+        <if test="userName != null">#{userName}, </if>
+        <if test="phone != null">#{phone}, </if>
+        <if test="mail != null">#{mail}, </if>
+        <if test="password != null">#{password}, </if>
+        <if test="remark != null">#{remark}, </if>
+        #{id}, now(), now(), 1
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.god.user.entity.UserInfoEntity">
+        update user_info
+        <set>
+            <if test="userName != null">user_name = #{userName}, </if>
+            <if test="phone != null">phone = #{phone}, </if>
+            <if test="mail != null">mail = #{mail}, </if>
+            <if test="password != null">password = #{password}, </if>
+            <if test="remark">remark = #{remark}</if>
+            modify_time = now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <update id="remove" parameterType="java.lang.String">
+		update user_info set dr = 0, modify_time = now() where id = #{id}
+	</update>
+
+    <!-- 恢复 -->
+    <update id="revert" parameterType="java.lang.String">
+		update user_info set dr = 1, modify_time = now() where id = #{id}
+	</update>
+
+    <!-- 通用查询条件 -->
+    <sql id="whereSql">
+        dr = 1
+        <if test="userName != null and userName != ''">
+            and user_name = #{userName}
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone = #{phone}
+        </if>
+        <if test="mail != null">
+            and mail = #{mail}
+        </if>
+        <if test="password != null">
+            and password = #{password}
+        </if>
+        <if test="remark">
+            and remark = #{remark}
+        </if>
+    </sql>
+
+    <!-- 根据主键查询 -->
+    <select id="queryById" parameterType="java.lang.String" resultType="com.god.user.entity.UserInfoEntity">
+		select * from user_info where id = #{id} and dr = 1
+	</select>
+
+    <!-- 条件查询单个对象 -->
+    <select id="queryOne" parameterType="com.god.user.entity.UserEntity" resultType="com.god.user.entity.UserInfoEntity">
+        select * from user_info where <include refid="whereSql"/> order by modify_time desc limit 0, 1
+    </select>
+
+    <!-- 条件查询 -->
+    <select id="queryList" parameterType="com.god.user.entity.UserEntity" resultType="com.god.user.entity.UserInfoEntity">
+        select * from user_info where <include refid="whereSql"/> order by modify_time desc
+    </select>
+
+    <!-- 条件查询总数量 -->
+    <select id="queryCount" parameterType="com.god.user.entity.UserInfoEntity" resultType="java.lang.Long">
+        select count(id) from user_info where <include refid="whereSql"/>
+    </select>
+
+</mapper>

@@ -2,7 +2,6 @@ package com.god.example.controller;
 
 import com.god.example.model.UserBean;
 import com.god.example.service.UserService;
-import com.god.util.PageData;
 import com.god.util.img.SCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

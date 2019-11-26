@@ -1,7 +1,6 @@
 package com.god.example.service;
 
 import com.god.example.model.UserBean;
-import com.god.util.PageData;
 
 /**
  * @Auther: shenzhaoyang

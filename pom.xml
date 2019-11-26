@@ -20,7 +20,9 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <spring_boot.version>0.0.1-SNAPSHOT</spring_boot.version>
+        <!--encoding utf8-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.1.5.RELEASE</springboot.version>
         <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
         <druid.version>1.1.9</druid.version>
@@ -46,7 +48,8 @@
         <HikariCP.version>3.2.0</HikariCP.version>
         <webmagic.version>0.7.2</webmagic.version>
         <velocity.version>2.0</velocity.version>
-        <util.version>0.0.1-SNAPSHOT</util.version>
+        <my_project.version>0.0.1-SNAPSHOT</my_project.version>
+        <swagger2.version>2.9.2</swagger2.version>
     </properties>
 
     <dependencyManagement>
@@ -55,9 +58,14 @@
             <dependency>
                 <groupId>com.god</groupId>
                 <artifactId>util</artifactId>
-                <version>${util.version}</version>
+                <version>${my_project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.god</groupId>
+                <artifactId>base</artifactId>
+                <version>${my_project.version}</version>
+            </dependency>
 
             <!-- Spring Boot相关jar包 -->
             <dependency>
@@ -88,6 +96,17 @@
             </dependency>
 
             <!-- 其余jar包 -->
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.auth0</groupId>
@@ -268,16 +287,20 @@
 
     <!-- 模块 -->
     <modules>
-        <module>util</module>
+        <module>Autogeneration</module>
+        <module>Base</module>
+        <module>EasyPOI</module>
+        <module>Ehcache</module>
+        <module>Example</module>
+        <module>Exception</module>
+        <module>Job</module>
         <module>Jwt_Security</module>
         <module>JwtProject</module>
-        <module>job</module>
         <module>MyJob</module>
-        <module>Exception</module>
-        <module>EasyPOI</module>
-        <module>Autogeneration</module>
+        <module>util</module>
         <module>Validator</module>
-        <module>Example</module>
+        <module>Demo</module>
+        <module>ExampleSwagger</module>
     </modules>
 
     <build>

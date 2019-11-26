@@ -57,7 +57,7 @@ public class CommentGenerator1 extends DefaultCommentGenerator {
             //文档注释结束
             field.addJavaDocLine(" */");
             //swagger注解
-//            field.addJavaDocLine("@ApiModelProperty("+'"'+swaggerAnnotation+'"'+")");
+//            field.addJavaDocLine(""+'"'+swaggerAnnotation+'"'+")");
         }
     }
     /**
